@@ -50,3 +50,14 @@ app.put("/dispositivos/:id", (request, response) => {
     dispositivos[indice] = actualizar
     response.json({ success: true, message: "Dispositivo actualizado con éxito", data: actualizar})
 })
+
+
+app.delete("/dispositivos/:id", (request, response) => {
+    const id = request.params.id
+    const indice = dispositivos.findIndex(item => String(item.id) === String(id))
+    if(indice === -1) {
+        return response.status(404).json({ success: false, message: "Dispositivo no encontrado"})
+    }
+    const eliminado = dispositivos.splice(indice, 1)
+    response.json({ success: true, message: "Dispositivo eliminado con éxito", data: eliminado })
+})
